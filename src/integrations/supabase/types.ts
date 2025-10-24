@@ -60,7 +60,6 @@ export type Database = {
           closed_at: string | null
           created_at: string
           description: string | null
-          fir_id: string | null
           id: string
           investigation_notes: string | null
           outcome: string | null
@@ -75,7 +74,6 @@ export type Database = {
           closed_at?: string | null
           created_at?: string
           description?: string | null
-          fir_id?: string | null
           id?: string
           investigation_notes?: string | null
           outcome?: string | null
@@ -90,7 +88,6 @@ export type Database = {
           closed_at?: string | null
           created_at?: string
           description?: string | null
-          fir_id?: string | null
           id?: string
           investigation_notes?: string | null
           outcome?: string | null
@@ -99,15 +96,7 @@ export type Database = {
           title?: string
           updated_at?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "cases_fir_id_fkey"
-            columns: ["fir_id"]
-            isOneToOne: false
-            referencedRelation: "firs"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       criminals: {
         Row: {
@@ -207,6 +196,7 @@ export type Database = {
       firs: {
         Row: {
           assigned_officer_id: string | null
+          case_id: string | null
           created_at: string
           crime_type: string
           description: string
@@ -225,6 +215,7 @@ export type Database = {
         }
         Insert: {
           assigned_officer_id?: string | null
+          case_id?: string | null
           created_at?: string
           crime_type: string
           description: string
@@ -243,6 +234,7 @@ export type Database = {
         }
         Update: {
           assigned_officer_id?: string | null
+          case_id?: string | null
           created_at?: string
           crime_type?: string
           description?: string
@@ -260,6 +252,13 @@ export type Database = {
           victim_name?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "firs_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "firs_location_id_fkey"
             columns: ["location_id"]
